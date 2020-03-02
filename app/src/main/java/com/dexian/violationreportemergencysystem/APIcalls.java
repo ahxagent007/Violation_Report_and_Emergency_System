@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -25,16 +26,32 @@ public class APIcalls {
     Context context;
     String WEBSITE;
 
-    private void searchPigeon(String searchText){
-        String searchURL = "http://"+WEBSITE+"/Pigeons/search.php?s="+searchText;
+    String MAIN_LINK = "http://kitsware.com/projects/policeApp/";
+
+    String REGISTER = MAIN_LINK + "register.php?user=<STRING>&pass=<STRING>&mobile=<STRING>&email=<STRING>&address=<STRING>"; //RESPONSE: OK or ERROR!
+    String LOGIN = "login.php?user=<STRING>&pass=<STRING>"; //RESPONSE: OK or ERROR!
+    String ADD_NEW_FIR = "fir.php?user=<STRING>&against=<STRING>&details=<STRING(SPACE MUST BE REPLACED BY UNDERSCORE)>"; //RESPONSE: OK or ERROR!
+    String ADD_NEW_COMPLAINT = "complaint.php?user=<STRING>&place=<STRING>&details=<STRING(SPACE MUST BE REPLACED BY UNDERSCORE)>"; //RESPONSE: OK or ERROR!
+    String EMERGENCY_BUTTON = "emergency.php?user=<STRING>&location=<LATITUDE,LONGITUDE>"; //RESPONSE: OK or ERROR!
+
+    String GET_FIR_LIST = "fir.php?user=<STRING>"; //JSON Format
+    String GET_COMPLAINT_LIST = "complaint.php?user=<STRING>"; //JSON Format
+    String GET_EMERGENCY_LIST = "emergency.php?user=<STRING>"; //JSON Format
+
+    public APIcalls(Context context) {
+        this.context = context;
+    }
+
+    public void GET_FIR_LIST(String user){
+        String URL = MAIN_LINK + "fir.php?user="+user; //JSON Format
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        Log.i(TAG,"Search URL : "+searchURL);
+        Log.i(TAG,"GET_FIR_LIST URL : "+URL);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
-                searchURL,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -42,12 +59,14 @@ public class APIcalls {
 
                         String jsonRes = response.toString();
 
-                        Log.i(TAG,jsonRes);
+                        /*Log.i(TAG,jsonRes);
 
                         Gson gson = new Gson();
                         JsonParser parser = new JsonParser();
 
-                        JsonObject object = (JsonObject) parser.parse(jsonRes);// response will be the json String
+                        JsonArray object = (JsonArray) parser.parse(jsonRes);*/// response will be the json String
+
+                        Log.i(TAG, "GET_FIR_LIST JSON RESPONSE : "+jsonRes);
                         //PigeonList emp = gson.fromJson(object, PigeonList.class);
 
                         //Log.i(TAG,emp.getRecords().toString());
@@ -66,7 +85,7 @@ public class APIcalls {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG,"REST API ERROR on Search:"+error.toString());
+                        Log.i(TAG,"ERROR on GET_FIR_LIST : "+error.toString());
                     }
                 }
         );
