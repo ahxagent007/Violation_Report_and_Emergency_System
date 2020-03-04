@@ -7,13 +7,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,6 +79,8 @@ public class APIcalls {
                         //Log.i(TAG,"pp size : "+pp.size());
                         //Log.i(TAG,"pp 0 name = "+pp.get(0).getPigeonRingNumber());
 
+
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -91,6 +92,100 @@ public class APIcalls {
         );
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public String LOG_IN(String user, String pass){
+        String URL = MAIN_LINK + "login.php?user="+user+"&pass="+pass; //JSON Format
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        Log.i(TAG,"LOG_IN URL : "+URL);
+
+        final String[] temp = {"NULL"};
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "LOG_IN RESPONSE : "+response);
+                        String jsonRes = response.toString();
+                        Log.i(TAG, "LOG_IN j RESPONSE : "+jsonRes);
+                        temp[0] = jsonRes;
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG,"ERROR on LOG_IN : "+error.toString());
+                    }
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+
+        return temp[0];
+    }
+
+    public String jsonArrayRequest(){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        String URL = MAIN_LINK + "login.php?user="+"xian"+"&pass="+"xian"; //JSON Format
+
+        // prepare the Request
+        JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // display response
+                        Log.i("XIAN", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("XIAN", error.toString());
+                    }
+                }
+        );
+
+
+
+        // add it to the RequestQueue
+        queue.add(getRequest);
+        return "XIANxxxxxxxx";
+    }
+
+    public void StringRequest(){
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String URL = MAIN_LINK + "login.php?user="+"xian"+"&pass="+"xian"; //JSON Format
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.i("XIAN", ""+response);
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("XIAN", ""+error);
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     private void createProduct(String name, String description, String price, String category_id, String catergory_name){

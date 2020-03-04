@@ -27,14 +27,6 @@
 
 
             <Button
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:layout_margin="20dp"/>
-
-
-            <Button
                 android:id="@+id/btn_fir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +46,7 @@
                 android:id="@+id/btn_EmergencyButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Emergency Button:"
+                android:text="Emergency Button"
                 android:layout_margin="20dp"/>
 
 
