@@ -47,7 +47,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_register, btn_fir, btn_addNewComplaint, btn_EmergencyButton, btn_getFirList, btn_GetComplaintList, btn_getEmergencyList;
+    Button  btn_fir, btn_addNewComplaint, btn_EmergencyButton, btn_getFirList, btn_GetComplaintList, btn_getEmergencyList;
     String MAIN_LINK = "http://kitsware.com/projects/policeApp/";
     String USER_NAME = "ANTOR_THE_KING_ROBOT";
 
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_register = findViewById(R.id.btn_register);
         btn_fir = findViewById(R.id.btn_fir);
         btn_addNewComplaint = findViewById(R.id.btn_addNewComplaint);
         btn_EmergencyButton = findViewById(R.id.btn_EmergencyButton);
@@ -69,12 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         USER_NAME = getIntent().getStringExtra("USER_NAME");
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RegisterDialog();
-            }
-        });
+
 
         btn_fir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,38 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void RegisterDialog(){
-
-        // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.deialog_register);
-        //dialog.setTitle("Title...");
-
-        // set the custom dialog components - text, image and button
-        final EditText ET_username = dialog.findViewById(R.id.ET_username);
-        final EditText ET_pass = dialog.findViewById(R.id.ET_pass);
-        final EditText ET_mobile = dialog.findViewById(R.id.ET_mobile);
-        final EditText ET_email = dialog.findViewById(R.id.ET_email);
-        final EditText ET_address = dialog.findViewById(R.id.ET_address);
-        Button btn_register = dialog.findViewById(R.id.btn_register);
-
-        // if button is clicked, close the custom dialog
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RegisterUserRequest(ET_username.getText().toString(), ET_pass.getText().toString(), ET_mobile.getText().toString(), ET_email.getText().toString(), ET_address.getText().toString());
-                dialog.dismiss();
-            }
-        });
-
-
-        dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 90), ((getHeight(getApplicationContext()) / 100) * 50));
-        dialog.getWindow().setGravity(Gravity.CENTER);
-
-        dialog.show();
-
-    }
     private void FIRDialog(){
 
         // custom dialog
@@ -340,53 +302,6 @@ public class MainActivity extends AppCompatActivity {
         return displayMetrics.heightPixels;
     }
 
-    public void RegisterUserRequest(String userName, String pass, String mobile, String email, String address){
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String URL = MAIN_LINK + "register.php?user="+userName+"&pass="+pass+"&mobile="+mobile+"&email="+email+"&address="+address;
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i("XIAN", ""+response);
-
-                        if(response.trim().equals("ADDED")){
-                            new Handler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "REGISTER SUCCESSFUL", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }else {
-                            new Handler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "REGISTER FAILED", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(final VolleyError error) {
-                Log.i("XIAN", ""+error);
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "REGISTER FAILED "+error, Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
     public void AddNewFIRRequest(String userName, String against, String details){
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

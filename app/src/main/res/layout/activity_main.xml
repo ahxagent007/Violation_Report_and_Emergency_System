@@ -19,14 +19,6 @@
 
 
             <Button
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:layout_margin="20dp"/>
-
-
-            <Button
                 android:id="@+id/btn_fir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
