@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:weightSum="12"
+    android:background="#b7e8e0"
+    android:layout_margin="2dp">
+
+    <TextView
+        android:id="@+id/TV_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="ID"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/TV_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Antor Khan"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/TV_place"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Azimpur"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/TV_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="Details details details details"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="italic"/>
+    <TextView
+        android:id="@+id/TV_action"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="PENDING"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="normal"/>
+
+</LinearLayout>
