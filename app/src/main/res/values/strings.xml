@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Violation Report &amp; Emergency System</string>
+    <string name="app_name">Violation &amp; Emergency System</string>
+
+    <string-array name="fir_list">
+        <item>FIR Type</item>
+        <item>FIR 1</item>
+        <item>FIR 2</item>
+        <item>FIR 3</item>
+
+    </string-array>
 </resources>
+
+

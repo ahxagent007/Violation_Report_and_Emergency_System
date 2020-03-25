@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
 
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
 
                 Log.i("XIAN", "EMERGENCY LOC :: "+latitude+","+longitude);
 

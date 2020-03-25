@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="30dp">
@@ -8,40 +9,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add a new complaint"
+        android:text="Emergency system"
         android:textSize="25dp"
         android:textColor="#000000"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_margin="5dp"/>
 
-    <EditText
-        android:id="@+id/ET_subject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Complaint Subject"
-        android:gravity="center"
-        android:background="@drawable/bg_box_white"
-        android:padding="10dp"
-        android:textSize="15dp"
-        android:layout_margin="5dp"/>
 
     <EditText
-        android:id="@+id/ET_place"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Incident Place"
-        android:gravity="center"
-        android:background="@drawable/bg_box_white"
-        android:padding="10dp"
-        android:textSize="15dp"
-        android:layout_margin="5dp"/>
-
-    <EditText
-        android:id="@+id/ET_details"
+        android:id="@+id/ET_message"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:hint="Complaint Details"
+        android:hint="MEssage"
         android:gravity="center"
         android:background="@drawable/bg_box_white"
         android:padding="10dp"
@@ -50,10 +30,10 @@
 
 
     <Button
-        android:id="@+id/btn_complaint"
+        android:id="@+id/btn_emergency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Complain"
+        android:text="Emergency"
         android:background="@drawable/pressed_blue"
         android:textColor="#FFFFFF"
         android:padding="10dp"/>

@@ -10,40 +10,63 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="User Name"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/bg_box_white"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/ET_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/bg_box_white"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/ET_mobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mobile"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/bg_box_white"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/ET_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/bg_box_white"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/ET_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Address"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/bg_box_white"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"/>
+        android:text="Register"
+        android:background="@drawable/pressed_blue"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"/>
 
 </LinearLayout>

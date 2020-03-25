@@ -4,72 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center">
 
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_weight="2">
 
             <Button
                 android:id="@+id/btn_fir"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="FIR"
-                android:layout_margin="20dp"/>
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
 
 
             <Button
                 android:id="@+id/btn_addNewComplaint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="Add new Complaint"
-                android:layout_margin="20dp"/>
-
-
-            <Button
-                android:id="@+id/btn_EmergencyButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Emergency Button"
-                android:layout_margin="20dp"/>
-
-
-            <Button
-                android:id="@+id/btn_getFirList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get FIR list"
-                android:layout_margin="20dp"/>
-
-
-            <Button
-                android:id="@+id/btn_GetComplaintList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get Complaint list"
-                android:layout_margin="20dp"/>
-
-
-            <Button
-                android:id="@+id/btn_getEmergencyList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get Emergency list"
-                android:layout_margin="20dp"/>
-
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
 
 
         </LinearLayout>
 
 
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+            <Button
+                android:id="@+id/btn_EmergencyButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Emergency Button"
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
+
+
+            <Button
+                android:id="@+id/btn_getFirList"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Get FIR list"
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+
+            <Button
+                android:id="@+id/btn_GetComplaintList"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Get Complaint list"
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
+
+
+            <Button
+                android:id="@+id/btn_getEmergencyList"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Get Emergency list"
+                android:layout_margin="10dp"
+                android:background="@drawable/pressed_blue"
+                android:textColor="#FFFFFF"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
 
 </LinearLayout>
