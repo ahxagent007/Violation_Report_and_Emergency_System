@@ -2,6 +2,8 @@ package com.dexian.violationreportemergencysystem;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -26,6 +28,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,30 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-
-
-                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    Activity#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for Activity#requestPermissions for more details.
-                    return;
-                }
-
-
-                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                longitude = location.getLongitude();
-                latitude = location.getLatitude();
-
-                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
-
-                Log.i("XIAN", "EMERGENCY LOC :: "+latitude+","+longitude);
-
-                EmergencyButtonRequest(USER_NAME, +latitude+","+longitude);
+                getLocation();
+                EmergencyDialog();
             }
         });
         btn_getFirList.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +112,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void getLocation(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                askingLocationPermission();
+                return;
+            }
+        }
+        else{
+            int permissionLocation = PermissionChecker.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+            if(permissionLocation != PackageManager.PERMISSION_GRANTED ){
+
+                askingLocationPermission();
+            }
+        }
 
 
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
+
+        Log.i("XIAN", "EMERGENCY LOC :: "+latitude+","+longitude);
     }
     private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
@@ -156,6 +169,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    int PERMISSIONS_REQUEST_LOCATION = 101;
+    // Location Permission
+    private void askingLocationPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+    }
+
     private void FIRDialog(){
 
         // custom dialog
@@ -168,18 +188,23 @@ public class MainActivity extends AppCompatActivity {
         final EditText ET_details = dialog.findViewById(R.id.ET_details);
         Button btn_fir = dialog.findViewById(R.id.btn_fir);
 
+        final Spinner SP_fir_type = dialog.findViewById(R.id.SP_fir_type);
+        final EditText ET_against_address = dialog.findViewById(R.id.ET_against_address);
+
         // if button is clicked, close the custom dialog
         btn_fir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddNewFIRRequest(USER_NAME, ET_against.getText().toString(), ET_details.getText().toString());
+                String fir_type = SP_fir_type.getSelectedItem().toString();
+
+                AddNewFIRRequest(USER_NAME, ET_against.getText().toString(), ET_details.getText().toString(), fir_type, ET_against_address.getText().toString());
                 dialog.dismiss();
             }
         });
 
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 90), ((getHeight(getApplicationContext()) / 100) * 50));
+        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();
@@ -196,19 +221,48 @@ public class MainActivity extends AppCompatActivity {
         final EditText ET_place = dialog.findViewById(R.id.ET_place);
         final EditText ET_details = dialog.findViewById(R.id.ET_details);
         Button btn_complaint = dialog.findViewById(R.id.btn_complaint);
+        final EditText ET_subject = dialog.findViewById(R.id.ET_subject);
 
         // if button is clicked, close the custom dialog
         btn_complaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddNewComplaintRequest(USER_NAME, ET_place.getText().toString(), ET_details.getText().toString());
+                AddNewComplaintRequest(USER_NAME, ET_place.getText().toString(), ET_details.getText().toString(), ET_subject.getText().toString());
                 dialog.dismiss();
             }
         });
 
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 90), ((getHeight(getApplicationContext()) / 100) * 50));
+        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+        dialog.show();
+
+    }
+    private void EmergencyDialog(){
+
+        // custom dialog
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_emergency);
+        //dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+        final EditText ET_message = dialog.findViewById(R.id.ET_message);
+        Button btn_emergency = dialog.findViewById(R.id.btn_emergency);
+
+        // if button is clicked, close the custom dialog
+        btn_emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EmergencyButtonRequest(USER_NAME, +latitude+","+longitude, ET_message.getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.setCancelable(true);
+        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();
@@ -302,10 +356,10 @@ public class MainActivity extends AppCompatActivity {
         return displayMetrics.heightPixels;
     }
 
-    public void AddNewFIRRequest(String userName, String against, String details){
+    public void AddNewFIRRequest(String userName, String against, String details, String type, String address){
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String URL = MAIN_LINK + "fir.php?user="+userName+"&against="+against+"&details="+details;
+        String URL = MAIN_LINK + "fir.php?user="+userName+"&against="+against+"&details="+details+"&type="+type+"&address="+address;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
@@ -349,10 +403,10 @@ public class MainActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
-    public void AddNewComplaintRequest(String userName, String place, String details){
+    public void AddNewComplaintRequest(String userName, String place, String details, String subject){
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String URL = MAIN_LINK + "complaint.php?user="+userName+"&place="+place+"&details="+details;
+        String URL = MAIN_LINK + "complaint.php?user="+userName+"&place="+place+"&details="+details+"&subject="+subject;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
@@ -396,10 +450,10 @@ public class MainActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
-    public void EmergencyButtonRequest(String userName, String loc){
+    public void EmergencyButtonRequest(String userName, String loc, String msg){
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String URL = MAIN_LINK + "emergency.php?user="+userName+"&location="+loc;
+        String URL = MAIN_LINK + "emergency.php?user="+userName+"&location="+loc+"&message="+msg;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,

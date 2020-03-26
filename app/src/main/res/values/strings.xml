@@ -3,9 +3,12 @@
 
     <string-array name="fir_list">
         <item>FIR Type</item>
-        <item>FIR 1</item>
-        <item>FIR 2</item>
-        <item>FIR 3</item>
+        <item>Robbery</item>
+        <item>Thief</item>
+        <item>Rape</item>
+        <item>Murder</item>
+        <item>Lost</item>
+        <item>Other</item>
 
     </string-array>
 </resources>
