@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         USER_NAME = getIntent().getStringExtra("USER_NAME");
 
-
-
         btn_fir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 getEmergencyListRequest(USER_NAME);
             }
         });
+
+        getLocationAndSendLoc();
 
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -168,6 +168,41 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+    private void getLocationAndSendLoc(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                askingLocationPermission();
+                return;
+            }
+        }
+        else{
+            int permissionLocation = PermissionChecker.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+            if(permissionLocation != PackageManager.PERMISSION_GRANTED ){
+
+                askingLocationPermission();
+            }
+        }
+
+
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
+
+        sendLocation(USER_NAME, latitude+","+longitude);
+
+        Log.i("XIAN", "sendLocation LOC :: "+latitude+","+longitude);
+    }
 
     int PERMISSIONS_REQUEST_LOCATION = 101;
     // Location Permission
@@ -489,6 +524,53 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "REGISTER FAILED "+error, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    public void sendLocation(String userName, String loc){
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String URL = MAIN_LINK + "location.php?user="+userName+"&location="+loc;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.i("XIAN", ""+response);
+
+                        if(response.trim().equals("ADDED")){
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Toast.makeText(getApplicationContext(), "EMERGENCY SUCCESSFUL", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }else {
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Toast.makeText(getApplicationContext(), "EMERGENCY FAILED", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.i("XIAN", ""+error);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(getApplicationContext(), "REGISTER FAILED "+error, Toast.LENGTH_LONG).show();
                     }
                 });
             }

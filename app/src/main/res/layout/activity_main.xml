@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Emergency Button"
+                android:text="Emergency System"
                 android:layout_margin="10dp"
                 android:background="@drawable/pressed_blue"
                 android:textColor="#FFFFFF"/>
