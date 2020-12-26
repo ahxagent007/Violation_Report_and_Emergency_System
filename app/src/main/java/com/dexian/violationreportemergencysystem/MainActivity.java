@@ -140,8 +140,14 @@ public class MainActivity extends AppCompatActivity {
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        try{
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        } catch (Exception e ){
+            longitude = 0;
+            latitude = 0;
+        }
+
 
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
 
@@ -194,8 +200,13 @@ public class MainActivity extends AppCompatActivity {
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        try{
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        } catch (Exception e ){
+            longitude = 0;
+            latitude = 0;
+        }
 
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
 
@@ -214,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     private void FIRDialog(){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_fir);
         //dialog.setTitle("Title...");
 
@@ -239,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 
@@ -248,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
     private void ComplaintDialog(){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_complaint);
         //dialog.setTitle("Title...");
 
@@ -269,8 +280,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 
@@ -278,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
     private void EmergencyDialog(){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_emergency);
         //dialog.setTitle("Title...");
 
@@ -297,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 
@@ -306,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
     private void FIRListDialog(List<FIRList> firLists){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_fir_list);
         //dialog.setTitle("Title...");
 
@@ -318,8 +329,8 @@ public class MainActivity extends AppCompatActivity {
         LV_FIRList.setAdapter(customAdapterForFIRlist);
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 
@@ -327,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
     private void ComplaintListDialog(List<ComplaintList> complaintLists){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_complaint_list);
         //dialog.setTitle("Title...");
 
@@ -339,8 +350,8 @@ public class MainActivity extends AppCompatActivity {
         LV_ComplaintList.setAdapter(customAdapterForComplaintList);
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 
@@ -348,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
     private void EmergencyListDialog(List<EmergencyList> emergencyLists){
 
         // custom dialog
-        final Dialog dialog = new Dialog(MainActivity.this);
+        final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_emergency_list);
         //dialog.setTitle("Title...");
 
@@ -360,8 +371,8 @@ public class MainActivity extends AppCompatActivity {
         LV_EmergencyList.setAdapter(customAdapterForEmergencyList);
 
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        /*dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 100), ((getHeight(getApplicationContext()) / 100) * 100));
+        dialog.getWindow().setGravity(Gravity.CENTER);*/
 
         dialog.show();
 

@@ -21,7 +21,7 @@
         android:id="@+id/ET_message"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:hint="MEssage"
+        android:hint="Message"
         android:gravity="center"
         android:background="@drawable/bg_box_white"
         android:padding="10dp"
