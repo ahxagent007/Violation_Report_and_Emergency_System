@@ -25,7 +25,7 @@ public class APIcalls {
     Context context;
     String WEBSITE;
 
-    String MAIN_LINK = "http://kitsware.com/projects/policeApp/";
+    String MAIN_LINK = "http://rifatsayma.com/";
 
     String REGISTER = MAIN_LINK + "register.php?user=<STRING>&pass=<STRING>&mobile=<STRING>&email=<STRING>&address=<STRING>"; //RESPONSE: OK or ERROR!
     String LOGIN = "login.php?user=<STRING>&pass=<STRING>"; //RESPONSE: OK or ERROR!

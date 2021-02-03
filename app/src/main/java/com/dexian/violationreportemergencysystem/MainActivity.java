@@ -51,7 +51,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     Button  btn_fir, btn_addNewComplaint, btn_EmergencyButton, btn_getFirList, btn_GetComplaintList, btn_getEmergencyList;
-    String MAIN_LINK = "http://kitsware.com/projects/policeApp/";
+    String MAIN_LINK; // = "http://rifatsayma.com/";
     String USER_NAME = "ANTOR_THE_KING_ROBOT";
 
     double longitude;
@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         btn_getFirList = findViewById(R.id.btn_getFirList);
         btn_GetComplaintList = findViewById(R.id.btn_GetComplaintList);
         btn_getEmergencyList = findViewById(R.id.btn_getEmergencyList);
+
+        MAIN_LINK = getResources().getString(R.string.MAIN_LINK);
 
         USER_NAME = getIntent().getStringExtra("USER_NAME");
 
@@ -147,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
             longitude = 0;
             latitude = 0;
         }
-
-
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
 
         Log.i("XIAN", "EMERGENCY LOC :: "+latitude+","+longitude);

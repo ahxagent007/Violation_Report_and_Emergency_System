@@ -27,13 +27,15 @@ public class Login extends AppCompatActivity {
 
     EditText ET_userName, ET_pass;
     Button btn_login, btn_register;
-    String MAIN_LINK = "http://kitsware.com/projects/policeApp/";
+    String MAIN_LINK;// = "http://kitsware.com/projects/policeApp/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        MAIN_LINK = getResources().getString(R.string.MAIN_LINK);
 
         ET_userName = findViewById(R.id.ET_userName);
         ET_pass = findViewById(R.id.ET_pass);
